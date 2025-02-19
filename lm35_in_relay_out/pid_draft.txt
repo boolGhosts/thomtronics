@@ -1,0 +1,59 @@
+/* PID arduino psuedocode
+
+/* output = Kp*error(t) + Ki* [int[error(dt)] + Kd d/dt*error(t) */
+
+Kp = 1
+Ki = 1
+Kd = 1
+
+float SP = 78.0
+float PV = 70.0
+
+t = now
+dt = now - lastTime
+
+/* error(t) Proportional term */
+error = SP - PV
+
+/* int[error(dt)] Integral term*/
+errorSum = errorSum + (error * dt)
+
+/* d/dt*error(t) Derivative term*/
+derError = error - lastError / dt
+
+Output = Kp*error + Ki*errorSum + Kd*derError
+
+lastTime = now
+lastError = error
+
+*/
+
+unsigned long lastTime;
+double PV, Output, SP;
+double errorSum, lastError;
+Double Kp, Ki, Kd;
+
+void Compute()
+{
+/*how long since we last calculated?*/
+unsigned long now = millis();
+double dt = (double)(now - lastTime);
+
+/*compute P,I,D terms*/
+double error = SP - PV;
+errSum = errSum + (error * dt);
+double derError = (error - lastError) / dt;
+
+/*compute PID output*/
+Output = Kp*error + Ki*errorSum + Kd*derError;
+
+lastError = error;
+lastTime = now;
+}
+
+void SetTunings(double set_kp, double set_ki, double set_kd)
+{
+Kp = set_kp;
+Ki = set_ki;
+Kd = set_kd;
+}
