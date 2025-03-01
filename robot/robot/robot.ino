@@ -38,7 +38,7 @@ void loop()
   distanceInch = distance*0.393701;
   Serial.print("Distance: ");  
 	Serial.println(distanceInch);
-  if (distanceInch < 1.2) {
+  if (distanceInch < 3) {
       digitalWrite(13, HIGH);
       delay(500);
       digitalWrite(13, LOW);
